@@ -1,4 +1,5 @@
 import { instance } from "../provider/axios.js";
+import {question} from '../service/inquirer.js'
 
 export class GeminiService {
   constructor (message) {
@@ -8,13 +9,13 @@ export class GeminiService {
     instance.post(`?key=${process.env.API_KEY}`,
       {
         "contents": [{
-          "parts":[{"text": "me retorne uma mensagem de commit curta que mostre o que foi alterado: " + this.message}]
+          "parts":[{"text": "Me retorne em português brasileiro, sem caracteres especiais como aspas nem quebra de linha, uma mensagem de commit curta que mostre o que foi alterado nesse commit: " + this.message}]
         }]
       },
     ).then((response) => {
-        console.log(response.data.candidates[0].content.parts[0].text)
+        question(response.data.candidates[0].content.parts[0].text)
       }).catch((error) => {
-        console.log(error.response.data.error.message)
+        error.response
       });
   }
 }
