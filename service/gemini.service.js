@@ -1,11 +1,14 @@
-import { instance } from "./provider/axios.js";
+import { instance } from "../provider/axios.js";
 
-class GeminiService {
-  getGemini() {
+export class GeminiService {
+  constructor (message) {
+    this.message = message
+  }
+  getCommitMessage() {
     instance.post(`?key=${process.env.API_KEY}`,
       {
         "contents": [{
-          "parts":[{"text": "me retorne uma mensagem de commit curta que mostre o que foi alterado: " + message}]
+          "parts":[{"text": "me retorne uma mensagem de commit curta que mostre o que foi alterado: " + this.message}]
         }]
       },
     ).then((response) => {
