@@ -1,11 +1,14 @@
 {
-  "name": "puxai",
+  "name": "aila",
   "version": "1.0.0",
   "description": "commit messages by IA",
   "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "aila": "./index.js"
   },
   "author": "Hermes",
   "license": "MIT",
