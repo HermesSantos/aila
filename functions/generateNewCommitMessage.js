@@ -10,6 +10,13 @@ export const generateNewCommitMessage = () => {
         console.error('Not a git repository. Error code: ', err.code);
         return
       }
+      if(err.code === 127) {
+        console.error('Git is not installed. Error code: ', err.code);
+        return
+      }
+      if(stdout === '') {
+        console.error('No differences to be shown', err.code);
+      }
       return
     }
     const gemini_service = new GeminiService(stdout)
