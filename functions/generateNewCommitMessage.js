@@ -5,7 +5,6 @@ let finalMessage
 
 export const generateNewCommitMessage = () => {
   exec('git diff', (err, stdout, stderr) => {
-    console.log(stdout === '')
     if (err) {
       if(err.code === 129) {
         console.error('Not a git repository. Error code: ', err.code);
@@ -17,6 +16,7 @@ export const generateNewCommitMessage = () => {
       }
       if(stdout === '') {
         console.error('No differences to be shown', err.code);
+        return
       }
       return
     }
