@@ -6,7 +6,10 @@ let finalMessage
 export const generateNewCommitMessage = () => {
   exec('git diff', (err, stdout, stderr) => {
     if (err) {
-      console.error('err', err);
+      if(err.code === 129) {
+        console.error('Not a git repository. Error code: ', err.code);
+        return
+      }
       return
     }
     const gemini_service = new GeminiService(stdout)
