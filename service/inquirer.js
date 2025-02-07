@@ -10,7 +10,7 @@ export const question = (commitMessage) => {
         type: 'list',
         name: 'isCommitMessageAwesome',
         message: 'Gostaria de gerar outra mensagem de commit ou usar essa?',
-        choices: ['Gerar outra', 'Usar essa']
+        choices: ['Usar essa', 'Gerar outra']
       }
     ])
     .then((answers) => {
