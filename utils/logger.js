@@ -19,7 +19,7 @@ export const logger = (code) => {
     return
   }
   emptyDiff = () => {
-    console.error('No differences to be shown', err.code);
+    console.error('No differences to be shown: Error code: ', err.code);
     return
   }
   codes[code]()
