@@ -11,7 +11,7 @@ const __dirname = path.dirname(__filename);
 
 dotenv.config({ path: path.resolve(__dirname, '.env') });
 
-if(!process.env.API_KEY_TEST) {
+if(!process.env.API_KEY) {
   getGeminiApiKey()
 } else {
   generateNewCommitMessage()
