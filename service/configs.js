@@ -39,5 +39,25 @@ export class Config {
         console.log('ainda nao implementado')
       })
   }
-  changeApiKey () {}
+  changeApiKey () {
+    inquirer.prompt([
+      {
+        name: 'apiKey',
+        message: 'Nova chave de API do Gemini: ',
+      },
+    ]).then(answer => {
+        const path = pathFileFinder('../.env')
+        fs.readFile(path, 'utf8', (err, data) =>  {
+          if(err) {
+            console.log(err)
+            return
+          }
+          const newData = data
+            .includes('API_KEY') ?
+              data.replace(/API_KEY=.*/g, `API_KEY=${answer.apiKey}\n`) :
+              data.concat(`API_KEY=${answer.apiKey}\n`)
+          fs.writeFile(path, newData, (err) => console.log(err))
+        })
+      })
+  }
 }
