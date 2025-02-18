@@ -1,4 +1,5 @@
 import inquirer from "inquirer";
+import {question} from '../service/inquirer.js'
 import { pathFileFinder } from "../utils/pathFileFinder.js";
 import fs from "fs";
 

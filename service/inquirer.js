@@ -2,8 +2,7 @@ import inquirer from "inquirer";
 import {generateNewCommitMessage} from '../functions/generateNewCommitMessage.js'
 import {useCurrentCommitMessage} from '../functions/useCurrentCommitMessage.js'
 import {goToConfigs} from '../functions/goToConfigs.js'
-import process from 'process'
-import {lang} from '../languages/lang.js'
+import { currentLang } from "../utils/currentLang.js";
 
 export const question = (commitMessage) => {
   inquirer
@@ -11,16 +10,16 @@ export const question = (commitMessage) => {
       {
         type: 'list',
         name: 'isCommitMessageAwesome',
-        message: `${lang[process.env.APP_LANGUAGE].A01}`,
-        choices: ['Usar essa', 'Gerar outra', 'Configurações', 'Sair']
+        message: `${currentLang().A01}`,
+        choices: [`${currentLang().A02}`, `${currentLang().A03}`, `${currentLang().A04}`, `${currentLang().A05}`]
       }
     ])
     .then((answers) => {
-      if(answers.isCommitMessageAwesome === 'Usar essa') {
+      if(answers.isCommitMessageAwesome === `${currentLang().A02}`) {
         useCurrentCommitMessage(commitMessage)
-      } else if (answers.isCommitMessageAwesome === 'Gerar outra') {
+      } else if (answers.isCommitMessageAwesome === `${currentLang().A03}`) {
         generateNewCommitMessage()
-      } else if (answers.isCommitMessageAwesome === 'Configurações') {
+      } else if (answers.isCommitMessageAwesome === `${currentLang().A04}`) {
         goToConfigs(commitMessage)
       } else {
         return
