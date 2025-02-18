@@ -27,6 +27,17 @@ export class Config {
       console.log('Idioma alterado com sucesso.')
     })
   }
-  changeApplicationLanguage () {}
+  changeApplicationLanguage () {
+    inquirer.prompt([
+      {
+        type: 'list',
+        name: 'language',
+        message: 'Escolha o idioma da aplicação',
+        choices: ['English', 'Português']
+      }
+    ]).then(answer => {
+        console.log('ainda nao implementado')
+      })
+  }
   changeApiKey () {}
 }
