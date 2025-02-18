@@ -19,9 +19,9 @@ export class Config {
             return
           }
           const newData = data
-            .includes('APP_LANGUAGE') ?
-              data.replace(/APP_LANGUAGE=.*/g, `APP_LANGUAGE=${answer.language}\n`) :
-              data.concat(`APP_LANGUAGE=${answer.language}\n`)
+            .includes('COMMIT_LANGUAGE') ?
+              data.replace(/COMMIT_LANGUAGE=.*/g, `COMMIT_LANGUAGE=${answer.language}\n`) :
+              data.concat(`COMMIT_LANGUAGE=${answer.language}\n`)
           fs.writeFile(path, newData, (err) => console.log(err))
         });
       console.log('Idioma alterado com sucesso.')

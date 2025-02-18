@@ -2,6 +2,8 @@ import inquirer from "inquirer";
 import {generateNewCommitMessage} from '../functions/generateNewCommitMessage.js'
 import {useCurrentCommitMessage} from '../functions/useCurrentCommitMessage.js'
 import {goToConfigs} from '../functions/goToConfigs.js'
+import process from 'process'
+import {lang} from '../languages/lang.js'
 
 export const question = (commitMessage) => {
   inquirer
@@ -9,7 +11,7 @@ export const question = (commitMessage) => {
       {
         type: 'list',
         name: 'isCommitMessageAwesome',
-        message: 'Gostaria de gerar outra mensagem de commit ou usar essa?',
+        message: `${lang[process.env.APP_LANGUAGE].A01}`,
         choices: ['Usar essa', 'Gerar outra', 'Configurações', 'Sair']
       }
     ])
