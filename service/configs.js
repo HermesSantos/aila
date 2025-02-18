@@ -12,7 +12,7 @@ export class Config {
         choices: ['English', 'Português']
       }
     ]).then(answer => {
-        this.updateEnv('API_KEY', answer.language)
+        this.updateEnv('COMMIT_LANGUAGE', answer.language)
         console.log('Idioma alterado com sucesso.')
     })
   }
@@ -25,7 +25,7 @@ export class Config {
         choices: ['English', 'Português']
       }
     ]).then(answer => {
-        this.updateEnv('API_KEY', answer.language)
+        this.updateEnv('APP_LANGUAGE', answer.language)
       })
   }
   changeApiKey () {
