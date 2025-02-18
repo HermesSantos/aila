@@ -12,19 +12,8 @@ export class Config {
         choices: ['English', 'Português']
       }
     ]).then(answer => {
-        const path = pathFileFinder('../.env')
-        fs.readFile(path, 'utf8', (err, data) => {
-          if(err) {
-            console.log(err)
-            return
-          }
-          const newData = data
-            .includes('COMMIT_LANGUAGE') ?
-              data.replace(/COMMIT_LANGUAGE=.*/g, `COMMIT_LANGUAGE=${answer.language}\n`) :
-              data.concat(`COMMIT_LANGUAGE=${answer.language}\n`)
-          fs.writeFile(path, newData, (err) => console.log(err))
-        });
-      console.log('Idioma alterado com sucesso.')
+        this.updateEnv('API_KEY', answer.language)
+        console.log('Idioma alterado com sucesso.')
     })
   }
   changeApplicationLanguage () {
@@ -36,7 +25,7 @@ export class Config {
         choices: ['English', 'Português']
       }
     ]).then(answer => {
-        console.log('ainda nao implementado')
+        this.updateEnv('API_KEY', answer.language)
       })
   }
   changeApiKey () {
@@ -46,18 +35,23 @@ export class Config {
         message: 'Nova chave de API do Gemini: ',
       },
     ]).then(answer => {
-        const path = pathFileFinder('../.env')
-        fs.readFile(path, 'utf8', (err, data) =>  {
-          if(err) {
-            console.log(err)
-            return
-          }
-          const newData = data
-            .includes('API_KEY') ?
-              data.replace(/API_KEY=.*/g, `API_KEY=${answer.apiKey}\n`) :
-              data.concat(`API_KEY=${answer.apiKey}\n`)
-          fs.writeFile(path, newData, (err) => console.log(err))
-        })
+        this.updateEnv('API_KEY', answer.apiKey)
       })
+  }
+  updateEnv (envKey, answer) {
+    const path = pathFileFinder('../.env')
+    const regex = new RegExp(`${envKey}=.*`, 'g'); 
+
+    fs.readFile(path, 'utf8', (err, data) =>  {
+      if(err) {
+        console.log(err)
+        return
+      }
+      const newData = data
+        .includes(envKey) ?
+        data.replace(regex, `${envKey}=${answer}\n`) :
+        data.concat(`${envKey}=${answer}\n`)
+      fs.writeFile(path, newData, (err) => console.log(err))
+    })
   }
 }
