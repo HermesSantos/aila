@@ -12,22 +12,20 @@ export class Config {
         choices: ['English', 'Português']
       }
     ]).then(answer => {
-        if(answer.language === 'English') {
-          const path = pathFileFinder('../.env')
-          fs.readFile(path, 'utf8', (err, data) => {
-            if(err) {
-              console.log(err)
-              return
-            }
-            const newData = data
-              .includes('APP_LANGUAGE') ?
-                data.replace(/APP_LANGUAGE=.*/g, 'APP_LANGUAGE=English\n') :
-                data.concat('APP_LANGUAGE=English\n')
-            fs.writeFile(path, newData, (err) => console.log(err))
-          });
-        }
-        console.log('Idioma alterado com sucesso.')
-      })
+        const path = pathFileFinder('../.env')
+        fs.readFile(path, 'utf8', (err, data) => {
+          if(err) {
+            console.log(err)
+            return
+          }
+          const newData = data
+            .includes('APP_LANGUAGE') ?
+              data.replace(/APP_LANGUAGE=.*/g, `APP_LANGUAGE=${answer.language}\n`) :
+              data.concat(`APP_LANGUAGE=${answer.language}\n`)
+          fs.writeFile(path, newData, (err) => console.log(err))
+        });
+      console.log('Idioma alterado com sucesso.')
+    })
   }
   changeApplicationLanguage () {}
   changeApiKey () {}
