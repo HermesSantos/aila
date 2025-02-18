@@ -1,4 +1,6 @@
 import inquirer from "inquirer";
+import { pathFileFinder } from "../utils/pathFileFinder.js";
+import fs from "fs";
 
 export class Config {
   changeCommitLanguage () {
@@ -11,11 +13,18 @@ export class Config {
       }
     ]).then(answer => {
         if(answer.language === 'English') {
-          const __filename = fileURLToPath(import.meta.url);
-          const __dirname = path.dirname(__filename);
-          const filePath = path.resolve(__dirname, '../.env');
-          fs.appendFileSync(filePath, `APP_LANGUAGE=${answer.language}`, 'utf8');
-          console.log('Commit language changed successfully.')
+          const path = pathFileFinder('../.env')
+          fs.readFile(path, 'utf8', (err, data) => {
+            if(err) {
+              console.log(err)
+              return
+            }
+            const newData = data
+              .includes('APP_LANGUAGE') ?
+                data.replace(/APP_LANGUAGE=.*/g, 'APP_LANGUAGE=English\n') :
+                data.concat('APP_LANGUAGE=English\n')
+            fs.writeFile(path, newData, (err) => console.log(err))
+          });
         }
         console.log('Idioma alterado com sucesso.')
       })
