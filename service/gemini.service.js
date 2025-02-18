@@ -15,9 +15,11 @@ export class GeminiService {
           }]
         },
       ).then((response) => {
-          question(response.data.candidates[0].content.parts[0].text)
+          const commitMessage = response.data.candidates[0].content.parts[0].text
+          if (response) console.log('Mensagem de commit: \n', commitMessage, '\n')
+          question(commitMessage)
         }).catch((error) => {
-          error.response
+          console.log(error.response)
         });
     } else {
       console.error('Erro ao adiquirir chave de API')

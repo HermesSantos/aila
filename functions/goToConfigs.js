@@ -2,7 +2,7 @@ import inquirer from "inquirer";
 import {Config} from '../service/configs.js'
 import {question} from '../service/inquirer.js'
 
-export const goToConfigs = () => {
+export const goToConfigs = (commitMessage) => {
   inquirer.prompt([
     {
       type: 'list',
@@ -18,7 +18,7 @@ export const goToConfigs = () => {
       } else if (answer.configs === 'Alterar idioma da aplicação') {
         new Config().changeApplicationLanguage()
       } else if (answer.configs === 'Voltar') {
-        question()
+        question(commitMessage)
       }
     })
 }

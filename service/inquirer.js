@@ -4,7 +4,6 @@ import {useCurrentCommitMessage} from '../functions/useCurrentCommitMessage.js'
 import {goToConfigs} from '../functions/goToConfigs.js'
 
 export const question = (commitMessage) => {
-  if (commitMessage) console.log('Mensagem de commit: \n', commitMessage, '\n')
   inquirer
     .prompt([
       {
@@ -20,7 +19,7 @@ export const question = (commitMessage) => {
       } else if (answers.isCommitMessageAwesome === 'Gerar outra') {
         generateNewCommitMessage()
       } else if (answers.isCommitMessageAwesome === 'Configurações') {
-        goToConfigs()
+        goToConfigs(commitMessage)
       } else {
         return
       }
@@ -29,7 +28,7 @@ export const question = (commitMessage) => {
       if (error.isTtyError) {
         console.log("Prompt couldn't be rendered in the current environment")
       } else {
-        console.log("Something else went wrong")
+        console.log("Something else went wrong", error)
       }
     });
 }
