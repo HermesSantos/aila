@@ -11,7 +11,7 @@ export const generateNewCommitMessage = () => {
       logger(err.code)
       return
     }
-    if (process.argv.includes('-cc')) {
+    if (process.argv.includes('--coca')) {
       if(!verifyLogs(stdout)){
         return
       }
