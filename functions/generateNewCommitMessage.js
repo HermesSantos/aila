@@ -11,7 +11,11 @@ export const generateNewCommitMessage = () => {
       logger(err.code)
       return
     }
-    verifyLogs(stdout)
+    if (process.argv.includes('-cc')) {
+      if(!verifyLogs(stdout)){
+        return
+      }
+    }
     const gemini_service = new GeminiService(stdout)
     finalMessage = gemini_service.getCommitMessage()
   })
